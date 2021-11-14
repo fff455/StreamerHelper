@@ -32,6 +32,7 @@
     "qs": "^6.9.4",
     "retry-axios": "^2.4.0",
     "terminal-image": "^1.2.1",
+    "ts-node": "^10.2.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

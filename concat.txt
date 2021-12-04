@@ -1,0 +1,7 @@
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-000.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-001.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-002.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-003.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-004.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-005.flv'
+file '/Users/bytedance/Documents/git/StreamerHelper/download/阔澜直播录屏/20211203晚上场/阔澜直播录屏-20211203晚上场-part-006.flv'

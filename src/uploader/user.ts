@@ -449,7 +449,7 @@ export class User {
       console.log(await terminalImage.buffer(dataImg.data));
       const regex = /^JSESSIONID=([\w]*)/g;
 
-      for (const headerElement of dataImg.headers["set-cookie"]) {
+      for (const headerElement of (dataImg.headers as any)["set-cookie"]) {
         let tmp = headerElement.match(regex);
         if (tmp) {
           this.JSESSIONID = tmp[0].split("=")[1];

@@ -1,14 +1,16 @@
 import * as dayjs from "dayjs";
 import * as chalk from "chalk";
+import * as path from "path";
+import * as fs from "fs";
 
 import { getStreamUrl } from "@/engine/getStreamUrl";
 import { StreamInfo } from "@/type/streamInfo";
 import { RoomStatus } from "@/engine/roomStatus";
-import { getRoomArrInfo } from "@/util/utils";
+import { getRoomArrInfo, getTimeV } from "@/util/utils";
 import { log4js } from "@/log";
 import { Scheduler } from "@/type/scheduler";
 import { App } from "..";
-import { Recorder } from "@/engine/message";
+import { Recorder, saveRootPath } from "@/engine/message";
 
 const roomCheckTime = require("../../templates/info.json").StreamerHelper
   .roomCheckTime;
@@ -17,6 +19,28 @@ const rooms = getRoomArrInfo(require("../../templates/info.json").streamerInfo);
 const logger = log4js.getLogger(`checkRoom`);
 const loggerCheck = log4js.getLogger(`check`);
 const interval = checkTime;
+
+const getJsonUrl = (roomName?: string): string => {
+  console.info("roomName: ", roomName);
+  if (!roomName) {
+    return "";
+  }
+  try {
+    const timeV = getTimeV();
+    const fileStatusPath = path.resolve(
+      saveRootPath,
+      roomName,
+      timeV,
+      "fileStatus.json"
+    );
+    console.log("fileStatusPath: ", fileStatusPath);
+    const fileStatusStr = fs.readFileSync(fileStatusPath);
+    const fileStatus = JSON.parse(fileStatusStr.toString());
+    return fileStatus.streamUrl;
+  } catch (err) {
+    return "";
+  }
+};
 
 export default new Scheduler(interval, async function (app: App) {
   loggerCheck.info(`Start checkRoom. Interval ${interval / 1000}s`);
@@ -54,12 +78,25 @@ export default new Scheduler(interval, async function (app: App) {
     };
 
     try {
-      const tmpStream = await getStreamUrl(
-        room.roomName,
-        room.roomLink,
-        room.roomTags,
-        room.roomTid
-      );
+      const jsonStream = getJsonUrl(room.roomName);
+      console.info("stream from json: ", jsonStream);
+      let tmpStream: StreamInfo;
+      if (jsonStream) {
+        tmpStream = {
+          streamUrl: jsonStream,
+          roomName: room.roomName,
+          roomLink: room.roomLink,
+          roomTags: room.roomTags,
+          roomTid: room.roomTid,
+        };
+      } else {
+        tmpStream = await getStreamUrl(
+          room.roomName,
+          room.roomLink,
+          room.roomTags,
+          room.roomTid
+        );
+      }
 
       // Merge streamUrl
       stream = Object.assign(stream, tmpStream);

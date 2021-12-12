@@ -5,7 +5,7 @@ import { join } from "path";
 import * as chalk from "chalk";
 import { Logger } from "log4js";
 
-import { emitter } from "@/util/utils";
+import { emitter, getTimeV } from "@/util/utils";
 import { StreamInfo } from "@/type/streamInfo";
 import { log4js } from "../log";
 import { FileStatus } from "@/type/fileStatus";
@@ -13,7 +13,7 @@ import { RoomStatusPath } from "@/engine/roomPathStatus";
 import { uploadStatus } from "@/uploader/uploadStatus";
 
 const rootPath = process.cwd();
-const saveRootPath = join(rootPath, "/download");
+export const saveRootPath = join(rootPath, "/download");
 const partDuration = "3000";
 
 export class Recorder {
@@ -39,7 +39,7 @@ export class Recorder {
     this.uploadLocalFile =
       stream.uploadLocalFile === undefined ? true : stream.uploadLocalFile;
     this.tid = stream.roomTid;
-    this.timeV = `${dayjs().format("YYYYMMDD")}${this.getTitlePostfix()}`;
+    this.timeV = getTimeV();
     this.ffmpegProcessEnd = false;
     this.ffmpegProcessEndByUser = false;
     this.tags = stream.roomTags;
@@ -182,6 +182,7 @@ export class Recorder {
         isPost: false,
         isFailed: false,
         delayTime: stream.delayTime ?? 2,
+        streamUrl: stream.streamUrl,
         templateTitle: stream.templateTitle || "",
         desc: stream.desc || "",
         source: stream.source || "",
@@ -217,18 +218,5 @@ export class Recorder {
       const obj = JSON.parse(text.toString()) as FileStatus;
       this.isPost = obj.isPost || false;
     }
-  }
-
-  private getTitlePostfix() {
-    const hour = parseInt(dayjs().format("HH"));
-
-    if (hour >= 0 && hour < 6) return "凌晨";
-
-    if (hour >= 6 && hour < 12) return "早上";
-
-    if (hour >= 12 && hour < 18) return "下午场";
-
-    if (hour >= 18 && hour < 24) return "晚上场";
-    return "";
   }
 }

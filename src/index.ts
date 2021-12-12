@@ -81,7 +81,7 @@ class App {
       );
 
       try {
-        await this.user.login();
+        // await this.user.login();
         resolve();
       } catch (e) {
         reject(e);

@@ -1,0 +1,5 @@
+{
+  "name": "stream_helper",
+  "script": "DEV=1 node ./dist/index.js",
+  "cwd": "./"
+}

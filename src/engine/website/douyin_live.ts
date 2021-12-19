@@ -3,7 +3,7 @@ const axios = require("axios");
 export function main(url: string) {
   return new Promise(function (resolve, reject) {
     axios
-      .post("https://xiaoma.world/team_node/api/v1/live/flv", {
+      .post("http://localhost:5027/api/v1/live/flv", {
         url,
       })
       .then(function (response: any) {

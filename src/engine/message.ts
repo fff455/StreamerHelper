@@ -182,7 +182,7 @@ export class Recorder {
         isPost: false,
         isFailed: false,
         delayTime: stream.delayTime ?? 2,
-        streamUrl: stream.streamUrl,
+        // streamUrl: stream.streamUrl,
         templateTitle: stream.templateTitle || "",
         desc: stream.desc || "",
         source: stream.source || "",
